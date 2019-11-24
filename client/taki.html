@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .card {
+            top: 0;
+            position: relative;
+            display: inline-flex;
+            width: 160px;
+            height: 200px;
+            border: 1px solid black;
+            border-radius: 5px;
+            font-weight: 900;
+            text-shadow: 2px 2px black;
+            box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
+            margin-right: -55px;
+            overflow: hidden;
+            background: #eee;
+            cursor: pointer;
+            transition: 0.25s ease-in-out;
+            transform: rotate(-2deg);
+        }
+        .card:hover {
+            z-index: 1;
+            top: -35px;
+            transform: rotate(1deg);
+        }
+        .card > span {
+            width: 100%;
+            height: 100%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .green, .red, .blue, .yellow {
+            font-size: 90px;
+        }
+        .green { color: green; }
+        .red { color: darkred; }
+        .blue { color: blue; }
+        .yellow { color: yellow; }
+        .special { font-size: 64px; background: #aaa; color: white; }
+        .unknown { visibility: hidden; }
+        #myCards { 
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        #changeColorMenu {
+            visibility: hidden;
+            height: 150px;
+        }
+        #changeColorMenu.active {
+            visibility: visible;
+        }
+        #cardOnTopContainer {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="game">
+        <div id="status">
+            Current Player: <span id="currentPlayer"></span>
+        </div>
+        <hr />
+        <div id="cardOnTopContainer">
+            <div class="card"><span id="cardOnTop"></span></div>
+        </div>
+        <hr />
+        <div id="changeColorMenu">
+            <select>
+                <option>Blue</option>
+                <option>Red</option>
+                <option>Yellow</option>
+                <option>Green</option>
+            </select>
+            <button id="changeColorButton">שנה צבע</button>
+        </div>
+        <hr/>
+        <div id="myCards"></div>
+    </div>
+    <script src="taki.js"></script>
+</body>
+</html>
