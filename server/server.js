@@ -13,7 +13,7 @@ let playerCounter = 0;
 server.use(session({
     secret: '1',
     cookie: {},
-    resave: false,
+    resave: true,
     saveUninitialized: true
 }));
 
