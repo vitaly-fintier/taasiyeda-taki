@@ -12,7 +12,9 @@ let playerCounter = 0;
 
 server.use(session({
     secret: '1',
-    cookie: {}
+    cookie: {},
+    resave: true,
+    saveUninitialized: true
 }));
 
 server.use('/join/', (req, res, next) => {
@@ -23,7 +25,7 @@ server.use('/join/', (req, res, next) => {
     }
     for (let check of sessionPlayers) {
         if (check.sessionID === req.sessionID) 
-        res.redirect('/taki.html');
+        res.redirect('/');
         next(false);
     }
     console.log('Player joined: ', req.query['name'], req.sessionID);
@@ -34,7 +36,7 @@ server.use('/join/', (req, res, next) => {
     };
     sessionPlayers.push(playerData);
     game.addPlayer(playerData);
-    res.redirect('/taki.html');
+    res.redirect('/');
     next();
 });
 
