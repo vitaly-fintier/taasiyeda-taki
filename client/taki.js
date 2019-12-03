@@ -48,7 +48,7 @@ class Game {
             console.log(status);
             this.drawTheGame(status);
         });
-        setTimeout(() => this.synchronize(), 3000);
+        setTimeout(() => this.synchronize(), 1000);
     }
 
     playCard(card) {
