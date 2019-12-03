@@ -91,4 +91,4 @@ server.use('/gameStatus', (req, res, next) => {
 
 server.use(express.static(staticFiles));
 
-server.listen(8080);
+server.listen(process.env.PORT || 8080);
