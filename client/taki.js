@@ -8,6 +8,7 @@ class Game {
         this.currentPlaying = 0;
         this.cardState = [];
         this.playACard = this.playACard.bind(this);
+        this.playNoCard = this.playNoCard.bind(this);
 
         this.synchronize();
 
@@ -15,10 +16,12 @@ class Game {
             status: document.querySelector('#status'),
             currentPlayer: document.querySelector('#currentPlayer'),
             cardOnTop: document.querySelector('#cardOnTop'),
-            myCards: document.querySelector('#myCards')
+            myCards: document.querySelector('#myCards'),
+            nextPlayer: document.querySelector('#nextPlayer')
         }
 
         this.htmlNodes.myCards.addEventListener('click', this.playACard);
+        this.htmlNodes.nextPlayer.click.addEventListener('click', this.playNoCard)
 
     }
 
@@ -34,6 +37,16 @@ class Game {
                 }
             )
         }
+    }
+
+    playNoCard() {
+        fetch('/play').then(
+            response => {
+                if (response.status !== 200) {
+                    window.location.replace('/login.html');
+                }
+            }
+        )
     }
 
     synchronize() {

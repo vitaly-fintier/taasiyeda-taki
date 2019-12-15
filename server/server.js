@@ -56,6 +56,11 @@ server.use('/play', (req, res, next) => {
         res.status(200);
         res.send('ok');
         return next();
+    } else if(player) {
+        console.log('Player', player.name, 'has no card. move next.');
+        game.playNoCard(player)
+        res.status(200);
+        res.send('ok');
     } else {
         res.status(403);
         res.send('Oh no!');

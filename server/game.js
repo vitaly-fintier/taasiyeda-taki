@@ -74,6 +74,14 @@ class Game {
         }
     }
 
+    playNoCard(plaplayery) {
+        if(this.currentPlaying === player.playerId) {
+            player.cards.push(this.takeCardFromDeck());
+            this.nextRound();
+        }
+    }
+
+
     takeCardFromDeck() {
         if (this.deck.length) {
             return this.deck.pop();
