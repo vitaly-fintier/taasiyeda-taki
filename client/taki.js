@@ -21,7 +21,7 @@ class Game {
         }
 
         this.htmlNodes.myCards.addEventListener('click', this.playACard);
-        this.htmlNodes.nextPlayer.click.addEventListener('click', this.playNoCard)
+        this.htmlNodes.nextPlayer.addEventListener('click', this.playNoCard)
 
     }
 

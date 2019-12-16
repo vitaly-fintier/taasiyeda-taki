@@ -8,7 +8,7 @@ let cardIdCounter = 0;
  * @param {Array<any>} deck 
  */
 function shuffleDeck(deck) {
-    return deck.sort(() => Math.random < 0.5 ? -1 : 1);
+    return deck.sort(() => Math.random() < 0.5 ? -1 : 1);
 }
 
 function createDeck() {
