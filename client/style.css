@@ -71,3 +71,15 @@
   flex-direction: row;
   justify-content: center;
 }
+
+#nextPlayer {
+  padding: 20px;
+  margin-top: 20px;
+  background-color: #055FD4;
+  color: white;
+  font-weight: bold;
+  font-size: 26px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 15px 0px grey;
+  border: 2px solid lightgray;
+}
