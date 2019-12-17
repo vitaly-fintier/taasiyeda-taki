@@ -74,7 +74,7 @@ class Game {
         }
     }
 
-    playNoCard(plaplayery) {
+    playNoCard(player) {
         if(this.currentPlaying === player.playerId) {
             player.cards.push(this.takeCardFromDeck());
             this.nextRound();
