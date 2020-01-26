@@ -4,11 +4,14 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Running build automation'
+		sh 'npm install'
+	
             }
         }
        stage('Test') {
             steps {
                 sh 'node --version'
+		sh 'scripts/test'
             }
         }
         stage('Build Docker image') {
