@@ -1,10 +1,13 @@
 # taasiyeda-taki
 Simple Taki Game as a demo application
 
-## Requirements
+## Requirements(general installation)
 * npm
 * nodejs 10
 * git
+
+## Requirements(for docker installation)
+* docker
 
 ## Install requirements (Centos 7)
 
@@ -29,6 +32,9 @@ node server/server.js
 ## Or
 
 ## Build and run application in Docker container
+User which executes docker commands must be in "docker" group on host, 
+and group "docker" must have rw permission on docker socket(i.e /var/run/docker.sock)
+
 ```bash
 docker build -t taasiyeda-taki .
 docker run -d --name=taasiyeda-taki -p 8080:8080 taasiyeda-taki
