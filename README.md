@@ -1,5 +1,5 @@
 # taasiyeda-taki
-Simple Taki Game as a demo
+Simple Taki Game as a demo application
 
 ## Requirements
 * npm
