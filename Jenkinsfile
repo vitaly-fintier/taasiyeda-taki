@@ -42,16 +42,16 @@ pipeline {
                 branch 'master'
             }
             steps {
-                input 'Deploy to Production?'
+                sshagent (credentials: ['app_server_loginkey']) {
+		    sh "ssh -o StrictHostKeyChecking=no jenkins_deploy@$app_server_ip \"uname -a\""
+		}
+		input 'Deploy to Production?'
                 milestone(1)
-                withCredentials([usernamePassword(credentialsId: 'app_server_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
+                
+		withCredentials([usernamePassword(credentialsId: 'app_server_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
                     script {
-			    
 			sh "echo \"Dump env variables\";env"
-			    sshagent (credentials: ['app_server_loginkey']) {
-				    sh 'ssh -o StrictHostKeyChecking=no $app_server_ip "ls; env"'
-			    }
-                        sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$app_server_ip \"docker pull nettadmin/taasiyeda-taki:${env.BUILD_NUMBER}\""
+		        sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$app_server_ip \"docker pull nettadmin/taasiyeda-taki:${env.BUILD_NUMBER}\""
                         try {
                             sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$app_server_ip \"docker stop taasiyeda-taki\""
                             sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$app_server_ip \"docker rm taasiyeda-taki\""
