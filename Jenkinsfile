@@ -47,7 +47,10 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'app_server_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
                     script {
 			    
-			sh "echo \"Dump env variables\";env"     
+			sh "echo \"Dump env variables\";env"
+			    sshagent (credentials: ['app_server_loginkey']) {
+				    sh "ssh -o StrictHostKeyChecking=no $app_server_ip \"ls; env\"
+			    }
                         sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$app_server_ip \"docker pull nettadmin/taasiyeda-taki:${env.BUILD_NUMBER}\""
                         try {
                             sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$app_server_ip \"docker stop taasiyeda-taki\""
