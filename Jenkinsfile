@@ -41,28 +41,24 @@ pipeline {
             when {
                 branch 'master'
             }
+	    input 'Deploy to Production?'
+            milestone(1)
             steps {
-                sshagent (credentials: ['app_server_loginkey']) {
-		    sh "ssh -o StrictHostKeyChecking=no jenkins_deploy@$app_server_ip \"uname -a\""
-		}
-		input 'Deploy to Production?'
-                milestone(1)
-                
-		withCredentials([usernamePassword(credentialsId: 'app_server_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
-                    script {
-			sh "echo \"Dump env variables\";env"
-		        sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$app_server_ip \"docker pull nettadmin/taasiyeda-taki:${env.BUILD_NUMBER}\""
+		script {
+                    sshagent (credentials: ['app_server_loginkey']) {
+		        sh "ssh -o StrictHostKeyChecking=no jenkins_deploy@$app_server_ip \"uname -a\""
+		        sh "ssh -o StrictHostKeyChecking=no jenkins_deploy@$app_server_ip \"docker pull nettadmin/taasiyeda-taki:${env.BUILD_NUMBER}\""
                         try {
-                            sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$app_server_ip \"docker stop taasiyeda-taki\""
-                            sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$app_server_ip \"docker rm taasiyeda-taki\""
+                            sh "ssh -o StrictHostKeyChecking=no jenkins_deploy@$app_server_ip \"docker stop taasiyeda-taki\""
+                            sh "ssh -o StrictHostKeyChecking=no jenkins_deploy@$app_server_ip \"docker rm taasiyeda-taki\""
                         } catch (err) {
                             echo: 'caught error: $err'
                         }
-                        sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$app_server_ip \"docker run --restart always --name taasiyeda-taki -p 8080:8080 -d nettadmin/taasiyeda-taki:${env.BUILD_NUMBER}\""
+                        sh "ssh -o StrictHostKeyChecking=no jenkins_deploy@$app_server_ip \"docker run --restart always --name taasiyeda-taki -p 8080:8080 -d nettadmin/taasiyeda-taki:${env.BUILD_NUMBER}\""
                     }
-                }
+	        }
             }
         }
     }
-}
+}	
 
