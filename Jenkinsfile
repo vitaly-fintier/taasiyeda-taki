@@ -41,9 +41,9 @@ pipeline {
             when {
                 branch 'master'
             }
-	    input 'Deploy to Production?'
-            milestone(1)
-            steps {
+	    steps {
+		input 'Deploy to Production?'
+                milestone(1)    
 		script {
                     sshagent (credentials: ['app_server_loginkey']) {
 		        sh "ssh -o StrictHostKeyChecking=no jenkins_deploy@$app_server_ip \"uname -a\""
